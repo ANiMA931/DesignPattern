@@ -4,13 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
- * description:
- * </p>
- *
  * @author: 05697
  * @date: 2022/6/30
- * @comment:
+ * @comment: 基础事件监听器
  */
 public abstract class BaseEventListener implements EventListener {
     protected Logger logger = LoggerFactory.getLogger(getClass());
