@@ -68,22 +68,25 @@ public class AppTest {
         AuthLink authLink = new Level3AuthLink("1000013", "王工")
                 .appendNext(new Level2AuthLink("1000012", "张经理")
                         .appendNext(new Level1AuthLink("1000011", "段总")));
-        logger.info("测试结果{}", JSON.toJSONString(authLink.doAuth("王小堃",
-                "1000998004813441", new Date())));
+        String json0 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
+        logger.info("测试结果：{}", json0);
+        logger.info("----------------------------------------------");
         // 模拟三级负责人审批
         AuthService.auth("1000013", "1000998004813441");
-        logger.info("�����{}", "������������");
-        logger.info("�����{}", JSON.toJSONString(authLink.doAuth("���",
-                "1000998004813441", new Date())));
+        logger.info("测试结果：{}", "模拟三级负责人审批，王工");
+        String json1 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
+        logger.info("测试结果：{}", json1);
+        logger.info("----------------------------------------------");
         // 模拟二级负责人审批
         AuthService.auth("1000012", "1000998004813441");
-        logger.info("�����{}", "�������������");
-        logger.info("�����{}", JSON.toJSONString(authLink.doAuth("���",
-                "1000998004813441", new Date())));
+        logger.info("测试结果：{}", "模拟二级负责人审批，张经理");
+        String json2 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
+        logger.info("测试结果：{}", json2);
+        logger.info("----------------------------------------------");
         // 模拟一级负责人审批
         AuthService.auth("1000011", "1000998004813441");
-        logger.info("�����{}", "������������");
-        logger.info("�����{}", JSON.toJSONString(authLink.doAuth("���",
-                "1000998004813441", new Date())));
+        logger.info("测试结果：{}", "模拟一级负责人审批，段总");
+        String json3 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
+        logger.info("测试结果：{}", json3);
     }
 }

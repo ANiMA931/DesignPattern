@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @comment:
  */
 public class AuthService {
-    private static Map<String, Date> authMap = new ConcurrentHashMap<>();
+    private static final Map<String, Date> authMap = new ConcurrentHashMap<>();
 
     public static Date queryAuthInfo(String uId, String orderId) {
         return authMap.get(uId.concat(orderId));
