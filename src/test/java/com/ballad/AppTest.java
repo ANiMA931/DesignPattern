@@ -9,6 +9,14 @@ import com.ballad.observer.LotteryResult;
 import com.ballad.observer.LotteryService;
 import com.ballad.observer.LotteryServiceImpl;
 
+import com.ballad.order.XiaoEr;
+import com.ballad.order.cook.impl.GuangdongCook;
+import com.ballad.order.cook.impl.JiangsuCook;
+import com.ballad.order.cook.impl.ShandongCook;
+import com.ballad.order.cuisine.ICuisine;
+import com.ballad.order.cuisine.impl.GuangdongCuisine;
+import com.ballad.order.cuisine.impl.JiangsuCuisine;
+import com.ballad.order.cuisine.impl.ShandongCuisine;
 import com.ballad.responsibilitychain.AuthLink;
 import com.ballad.responsibilitychain.AuthService;
 import com.ballad.responsibilitychain.impl.Level1AuthLink;
@@ -88,5 +96,27 @@ public class AppTest {
         logger.info("测试结果：{}", "模拟一级负责人审批，段总");
         String json3 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
         logger.info("测试结果：{}", json3);
+    }
+
+    /**
+     * 命令模式测试方法
+     */
+    @Test
+    public void orderTest() {
+        ICuisine guangdongCuisine = new GuangdongCuisine(new GuangdongCook());
+        JiangsuCuisine jiangsuCuisine = new JiangsuCuisine(new JiangsuCook());
+        ShandongCuisine shandongCuisine = new ShandongCuisine(new ShandongCook());
+        XiaoEr xiaoEr = new XiaoEr();
+        xiaoEr.order(guangdongCuisine);
+        xiaoEr.order(jiangsuCuisine);
+        xiaoEr.order(shandongCuisine);
+
+        //下单
+        xiaoEr.placeOrder();
+        JiangsuCuisine jiangsuCuisine2 = new JiangsuCuisine(new GuangdongCook());
+        xiaoEr.order(jiangsuCuisine2);
+        logger.info("----------------------------------");
+        xiaoEr.placeOrder();
+
     }
 }
