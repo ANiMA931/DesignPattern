@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import com.alibaba.fastjson.JSON;
 import com.ballad.decorator.LoginSsoDecorator;
 import com.ballad.decorator.interceptor.SsoInterceptor;
+import com.ballad.factory.MyShape;
+import com.ballad.factory.MyShapeFactory;
 import com.ballad.observer.LotteryResult;
 import com.ballad.observer.LotteryService;
 import com.ballad.observer.LotteryServiceImpl;
@@ -117,6 +119,31 @@ public class AppTest {
         xiaoEr.order(jiangsuCuisine2);
         logger.info("----------------------------------");
         xiaoEr.placeOrder();
+    }
 
+    /**
+     * 工厂模式测试方法
+     */
+    @Test
+    public void factoryTest(){
+        MyShapeFactory shapeFactory = new MyShapeFactory();
+
+        //获取 Circle 的对象，并调用它的 draw 方法
+        MyShape shape1 = shapeFactory.getShape("CIRCLE");
+
+        //调用 Circle 的 draw 方法
+        shape1.draw();
+
+        //获取 Rectangle 的对象，并调用它的 draw 方法
+        MyShape shape2 = shapeFactory.getShape("RECTANGLE");
+
+        //调用 Rectangle 的 draw 方法
+        shape2.draw();
+
+        //获取 Square 的对象，并调用它的 draw 方法
+        MyShape shape3 = shapeFactory.getShape("SQUARE");
+
+        //调用 Square 的 draw 方法
+        shape3.draw();
     }
 }
