@@ -28,7 +28,7 @@ public class Level1AuthLink extends AuthLink {
         }
         AuthLink next = super.next();
         if (null == next) {
-            return new AuthInfo("0000", "单号：", orderId, " 状态：一级审批完成负责人 ", " 时间：", f.format(date), " 审批人：", levelUserName);
+            return new AuthInfo("0000", "单号：", orderId, " 状态：一级审批完成负责人 ", levelUserName, " 时间：", f.format(date), " 审批人：", levelUserName);
         }
         return next.doAuth(uId, orderId, authDate);
     }

@@ -60,7 +60,7 @@ public class AppTest {
     }
 
     /**
-     * 装饰着模式测试方法
+     * 装饰者模式测试方法
      */
     @Test
     public void decoratorTest() {
