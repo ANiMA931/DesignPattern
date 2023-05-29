@@ -41,7 +41,7 @@ public class AuthInfo {
     public String toString() {
         return "AuthInfo{" +
                 "code='" + code + '\'' +
-                "\n info='" + info + '\'' +
+                ", info='" + info + '\'' +
                 '}';
     }
 }

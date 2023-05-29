@@ -31,14 +31,15 @@ public class Level3AuthLink extends AuthLink {
     public AuthInfo doAuth(String uId, String orderId, Date authDate) {
         Date date = AuthService.queryAuthInfo(levelUserId, orderId);
         if (null == date) {
-            return new AuthInfo("0001", "单号：", orderId, " 状态：等待三级审批负责人 ", levelUserName);
+            return new AuthInfo("0001", "单号：", orderId, " 状态：等待第一级审批。负责人 ", levelUserName);
         }
         AuthLink next = super.next();
         if (null == next) {
-            return new AuthInfo("0000", "单号：", orderId, " 状态：三级审批完成。\n负责人 ", " 时间：", f.format(date), " 审批人：", levelUserName);
+            return new AuthInfo("0000", "单号：", orderId, " 状态：第一级审批完成。负责人 ", " 时间：", f.format(date), " 审批人：", levelUserName);
         }
+        //针对一点点要求，就是
         if (authDate.before(beginDate) || authDate.after(endDate)) {
-            return new AuthInfo("0000", "单号：", orderId, " 状态：三级审批完成。\n负责人 ", " 时间：", f.format(date), " 审批人：", levelUserName);
+            return new AuthInfo("0000", "单号：", orderId, " 状态：第一级审批完成。负责人 ", " 时间：", f.format(date), " 审批人：", levelUserName);
         }
         return next.doAuth(uId, orderId, authDate);
     }
