@@ -28,6 +28,7 @@ public abstract class AuthLink {
      * 级别人员姓名
      */
     protected String levelUserName;
+
     /**
      * 责任链
      */
@@ -38,14 +39,31 @@ public abstract class AuthLink {
         this.levelUserName = levelUserName;
     }
 
+    /**
+     * 获取下一级审批节点
+     * @return
+     */
     public AuthLink next() {
         return next;
     }
 
+    /**
+     * 添加下一级审批节点，并返回本级审批节点
+     * 这种审批节点添加方法，在初始化时，先append的节点在审批时会先执行，后添加的会后执行
+     * @param next
+     * @return
+     */
     public AuthLink appendNext(AuthLink next) {
         this.next = next;
         return this;
     }
 
+    /**
+     * 审批操作类
+     * @param uId uuid
+     * @param orderId 审批单号id
+     * @param authDate 审批时间
+     * @return
+     */
     public abstract AuthInfo doAuth(String uId, String orderId, Date authDate);
 }

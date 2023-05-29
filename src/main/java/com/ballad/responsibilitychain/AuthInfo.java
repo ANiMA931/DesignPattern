@@ -2,7 +2,7 @@ package com.ballad.responsibilitychain;
 
 /**
  * <p>
- * description:
+ * description: 审批信息类
  * </p>
  *
  * @author: 05697
@@ -35,5 +35,13 @@ public class AuthInfo {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthInfo{" +
+                "code='" + code + '\'' +
+                "\n info='" + info + '\'' +
+                '}';
     }
 }

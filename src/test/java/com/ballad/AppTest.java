@@ -2,7 +2,6 @@ package com.ballad;
 
 import static org.junit.Assert.assertTrue;
 
-import com.alibaba.fastjson.JSON;
 import com.ballad.decorator.LoginSsoDecorator;
 import com.ballad.decorator.interceptor.SsoInterceptor;
 import com.ballad.factory.MyShape;
@@ -24,6 +23,7 @@ import com.ballad.responsibilitychain.AuthService;
 import com.ballad.responsibilitychain.impl.Level1AuthLink;
 import com.ballad.responsibilitychain.impl.Level2AuthLink;
 import com.ballad.responsibilitychain.impl.Level3AuthLink;
+import com.ballad.utils.ToolUtil;
 import com.google.gson.Gson;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -78,26 +78,22 @@ public class AppTest {
         AuthLink authLink = new Level3AuthLink("1000013", "王工")
                 .appendNext(new Level2AuthLink("1000012", "张经理")
                         .appendNext(new Level1AuthLink("1000011", "段总")));
-        String json0 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
-        logger.info("测试结果：{}", json0);
+        logger.info("测试结果：{}", authLink.doAuth(ToolUtil.getUUID(), "1000998004813441", new Date()).toString());
         logger.info("----------------------------------------------");
         // 模拟三级负责人审批
         AuthService.auth("1000013", "1000998004813441");
-        logger.info("测试结果：{}", "模拟三级负责人审批，王工");
-        String json1 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
-        logger.info("测试结果：{}", json1);
+        logger.info("{}", "模拟第一级负责人审批，王工");
+        logger.info("测试结果：{}", authLink.doAuth(ToolUtil.getUUID(), "1000998004813441", new Date()));
         logger.info("----------------------------------------------");
         // 模拟二级负责人审批
         AuthService.auth("1000012", "1000998004813441");
-        logger.info("测试结果：{}", "模拟二级负责人审批，张经理");
-        String json2 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
-        logger.info("测试结果：{}", json2);
+        logger.info("{}", "模拟第二级负责人审批，张经理");
+        logger.info("测试结果：{}", authLink.doAuth(ToolUtil.getUUID(), "1000998004813441", new Date()));
         logger.info("----------------------------------------------");
         // 模拟一级负责人审批
         AuthService.auth("1000011", "1000998004813441");
-        logger.info("测试结果：{}", "模拟一级负责人审批，段总");
-        String json3 = JSON.toJSONString(authLink.doAuth("王小堃", "1000998004813441", new Date()));
-        logger.info("测试结果：{}", json3);
+        logger.info("{}", "模拟第三级负责人审批，段总");
+        logger.info("测试结果：{}", authLink.doAuth(ToolUtil.getUUID(), "1000998004813441", new Date()));
     }
 
     /**
