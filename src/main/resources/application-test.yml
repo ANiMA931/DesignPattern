@@ -1,0 +1,45 @@
+#此配置为使用 dynamic-datasource-springboot-start 后的
+spring:
+    datasource:
+        druid:
+            stat-view-servlet:
+                enabled: true
+                url-pattern: /druid/*
+                #login-username: admin
+                #login-password: admin
+        dynamic:
+            #全局Druid设置
+            druid:
+                initial-size: 10
+                max-active: 100
+                min-idle: 10
+                max-wait: 60000
+                time-between-eviction-runs-millis: 60000
+                pool-prepared-statements: true
+                max-pool-prepared-statement-per-connection-size: 20
+                min-evictable-idle-time-millis: 300000
+                #Oracle需要打开注释
+                validation-query: SELECT 1 FROM DUAL
+                #达梦可用
+                #validation-query: select 1
+                test-while-idle: true
+                test-on-borrow: false
+                test-on-return: false
+                # 数据库为达梦时禁用防火墙设置 Druid不支持DM
+                #filters: stat,wall
+                filters: stat
+                stat:
+                    log-slow-sql: true
+                    slow-sql-millis: 1000
+                    merge-sql: false #true时系統內一些复杂SQL会报异常但不影响执行结果，为了少输出日志改为false
+            datasource:
+                master:
+
+                    driver-class-name: com.mysql.cj.jdbc.Driver
+                    url: jdbc:mysql://192.168.0.211:3307/sqjz_guangdong?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+                    username: gdsqjz
+                    password: gdsqjz@123
+                    #针对单库的Druid设置，可覆盖全局设置
+                    druid:
+                        validation-query: SELECT 1 FROM DUAL
+                        testWhileIdle: true

@@ -1,0 +1,231 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 28059
+  servlet:
+    context-path: /sqjz/zjt/
+
+spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: test
+
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  redis:
+    open: true  # 是否开启redis缓存  true开启   false关闭
+    database: 7
+    #        host: 39.98.228.170
+    #        host: 127.0.0.1
+    #        host: 192.168.0.135
+    host: 192.168.0.35
+    port: 6379
+    password:       # 密码（默认为空）
+    timeout: 6000ms  # 连接超时时长（毫秒）
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.nci.modules.*.entity
+  global-config:
+    #数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: UUID
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: NOT_NULL
+      #驼峰下划线转换
+      column-underline: true
+      #刷新mapper 调试神器
+      refresh-mapper: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #序列接口实现类配置
+      #key-generator: com.baomidou.springboot.xxx
+      #逻辑删除配置
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+    banner: false
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+interceptor:
+  # 拦截的表名
+  tables:
+  createDateColumnName: create_time
+  updateDateColumnName: update_time
+  createUserColumnName: create_user_id
+  updateUserColumnName: update_user_id
+  deptIdColumnName: dept_id
+
+
+
+ftp:
+  connecttimeout: 5000
+  port: 21
+  url: 192.168.0.135
+  #  url: 192.168.0.139
+  username: sqjz_ftp
+  password: sqjz_client
+  errorpath: E:/sqjz_ftp_error_file/
+
+
+#ftp:
+#  connecttimeout: 5000
+#  port: 8066
+#  url: 39.98.228.170
+#  username: sqjz
+#  password: sqjz_client
+#  errorpath: D:/sqjz_ftp_error_file/
+
+
+#系统配置-组织机构层级：3代表直辖市；4代表省厅
+sysconfig:
+  orglevelnum: 3
+
+#是否启用特管人员权限 0-不启用；1-启用
+sfqytgryqx: 0
+#是否启用未成年权限 0-不启用；1-启用
+sfqywcnqx: 0
+
+#是否启用文档自动生成  0-不启用；1-启用
+sfqywdzdsc: 1
+
+#是否给工作人员APP发送待审批消息
+sfggzryappfsdspxx: 1
+file:
+  path: D:\upload\
+  maxSize: 50  #单位M 最大5M
+
+
+#是否自动发布矫务公开信息
+sfzdjwgk: 1
+
+#是否自动生成矫务公开信息 0-否；1-是
+sfzdscjwgkxx: 1
+
+#省份模板位置--35-福建
+docTemplates: src\main\resources\docTemplates\14_new
+
+#是否需要电子签章
+sfxydzqz: 1
+#广东：guangdong 山西：shanxi
+bshj: shanxi
+
+
+#短信发送模式   1-httpclient；2-webservice
+sendmsgmode: 2
+
+#短信发送配置
+sendmessage:
+  spcode: test
+  loginname: test
+  password: test
+  url: http://17.167.8.24/sms
+
+#webservice 发送短信
+sendmessage2:
+  serviceId: 1,
+  spId: 500020
+  spPassword: fgr5eklr
+  serviceUrl: http://192.167.111.26:5000/SendSmsService/services/SendSms?wsdl
+  sendFlag: 1
+
+
+
+
+#是否开启商汤人脸服务
+sfkqstrlfw: 1
+
+#调用商汤人脸识别服务
+#shangtang:
+#  face:
+#    url: http://192.168.0.148:30443/engine/api-wrapper/v1/face/batch_add_image_to_db
+##    url: http://39.98.228.170:8075/engine/api-wrapper/v1/face/batch_add_image_to_db
+##    db_id: 3917cc46-7591-4b64-a3ce-e0c1ea1cc000
+#    db_id: a08b1007-eb5a-4060-afea-a6f751f36000
+#    db_id_gzry:
+#    type: ALERT_FEATURE_DB
+#    readUrl: http://39.98.228.170:8067/sqjz/app/readFace
+#    readUrlGzry:
+
+
+# 允许通过注册补充人脸照片信息 0不允许，1允许
+allowAddFaceData: 0
+
+shangtang:
+  #商汤人脸模式
+  mode: 0
+
+  face:
+    url: http://17.167.8.13:8000/sqjz_data/engine/api-wrapper/v1/face/batch_add_image_to_db
+    db_id: 3917cc46-7591-4b64-a3ce-e0c1ea1cc000
+    db_id_gzry: f562497a-2b70-4397-a662-e76687422000
+    type: ALERT_FEATURE_DB
+    readUrl: http://127.0.0.1:8000/sqjz/api/readFace
+    readUrlGzry: http://127.0.0.1:8000/sqjz/api/readFaceGzry
+
+  face2:
+
+    #五、单图活体检测
+    url_hacknessScore: http://192.168.0.99:8899/ssid-kliveness/v2/hacknessScore
+
+    #六、单图片入库
+    url_insertByImage: http://192.168.0.99:8899/ssid-kfeature/v2/insertByImage
+
+#调用平台的文书生成服务
+docexport:
+  needApproveUrl: http://192.168.0.114:8000/sqjz/api/flws/spFlws
+  noNeedApproveUrl: http://192.168.0.114:8000/sqjz/api/flws/fspFlws
+
+xlcp:
+  result: http://192.168.0.114:8000/sqjz/api/sqjzXljzCpglCxrItem/measureResult
+
+#越界判断时，是否关联外出信息（请假外出或经常性跨市县外出）
+sfglwcxx: 1
+#数据库连接地址
+postgresConfig_url: jdbc:postgresql://192.168.0.135:5432/gisdb
+postgresConfig_userName: postgres
+postgresConfig_password: 123456
+
+#请假协管时判断外出目的地是否在本省内，山西 province = 240，广东province = 2191。重庆2523
+#areaInfoProvince: 2191
+#areaInfoProvince: 240
+areaInfoProvince: 2523
+
+#省份编码
+provinceCode: 50
+
+logging:
+  level:
+    root: info
+
+outPort: 8068
+outPackage: sqjzFxryApp-hainan
+
+# 是否为war包运行
+isWarPackage: 0
