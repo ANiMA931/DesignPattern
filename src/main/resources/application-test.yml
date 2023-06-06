@@ -36,9 +36,9 @@ spring:
                 master:
 
                     driver-class-name: com.mysql.cj.jdbc.Driver
-                    url: jdbc:mysql://192.168.0.211:3307/sqjz_guangdong?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
-                    username: gdsqjz
-                    password: gdsqjz@123
+                    url: jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+                    username: root
+                    password: ANiMA931!!!
                     #针对单库的Druid设置，可覆盖全局设置
                     druid:
                         validation-query: SELECT 1 FROM DUAL
