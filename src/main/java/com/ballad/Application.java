@@ -16,16 +16,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @ServletComponentScan
 @EnableScheduling//开启定时任务的注解
-public class ZjtApplication extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(ZjtApplication.class);
+        SpringApplication application = new SpringApplication(Application.class);
         application.addListeners(new ApplicationPidFileWriter("app.pid"));
         application.run(args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ZjtApplication.class);
+        return application.sources(Application.class);
     }
 }
