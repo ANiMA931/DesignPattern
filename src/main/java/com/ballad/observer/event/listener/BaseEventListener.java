@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 事件监听抽象类
+ *
  * @author: 05697
  * @date: 2022/6/30
  * @comment: 基础事件监听器

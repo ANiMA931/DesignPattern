@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 消息队列事件监听类
+ *
  * @author: 05697
  * @date: 2021/10/26
  * @comment:

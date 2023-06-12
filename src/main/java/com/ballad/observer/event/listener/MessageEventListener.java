@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 
 /**
+ * 短信事件监听类
+ *
  * @author: 05697
  * @date: 2021/10/26
  * @comment:

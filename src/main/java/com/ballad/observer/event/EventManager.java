@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 事件监听管理类
+ *
  * @author: 05697
  * @date: 2021/10/26
  * @comment:
@@ -16,6 +18,11 @@ import java.util.Map;
 public class EventManager {
     Map<Enum<EventType>, List<EventListener>> listeners = new HashMap<>();
 
+
+    /**
+     * 事件监听管理类构造方法，将需要注册监听的枚举注入到列表中
+     * @param operations
+     */
     @SafeVarargs
     public EventManager(Enum<EventType>... operations) {
         for (Enum<EventType> operation : operations) {
@@ -38,7 +45,8 @@ public class EventManager {
     }
 
     /**
-     * 订阅
+     * 订阅方法
+     * 将某个实现了监听的对象添加到管理类的列表中
      *
      * @param eventType 事件类型
      * @param listener  监听
@@ -50,6 +58,7 @@ public class EventManager {
 
     /**
      * 取消订阅
+     * 将某个实现类监听类的对象从管理类的列表中移除
      *
      * @param eventType 事件类型
      * @param listener  监听

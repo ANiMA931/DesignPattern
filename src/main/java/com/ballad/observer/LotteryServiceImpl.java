@@ -12,6 +12,7 @@ public class LotteryServiceImpl extends LotteryService{
      * 小型汽车摇号服务
      */
     private final MinibusTargetService minibusTargetService = new MinibusTargetService();
+
     @Override
     protected LotteryResult doDraw(String uId) {
         String lottery = minibusTargetService.lottery(uId);

@@ -3,6 +3,8 @@ package com.ballad.observer;
 import java.util.Date;
 
 /**
+ * 摇号结果信息类，并不是重要的东西，用来模拟数据库实体类
+ *
  * @author: 05697
  * @date: 2021/10/26
  * @comment:
