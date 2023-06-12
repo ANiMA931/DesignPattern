@@ -18,7 +18,7 @@
         <dynamicDatasource.version>2.5.4</dynamicDatasource.version>
         <druid.version>1.1.16</druid.version>
         <mysql.version>8.0.29</mysql.version>
-    </properties>>
+    </properties>
     <build>
         <plugins>
             <plugin>
