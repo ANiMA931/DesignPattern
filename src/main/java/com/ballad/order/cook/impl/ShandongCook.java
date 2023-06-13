@@ -1,13 +1,10 @@
 package com.ballad.order.cook.impl;
 
 import com.ballad.order.cook.BaseCook;
-import com.ballad.order.cook.ICook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * description:
+ * description: 具体的命令实现类
  * </p>
  *
  * @author: 05697

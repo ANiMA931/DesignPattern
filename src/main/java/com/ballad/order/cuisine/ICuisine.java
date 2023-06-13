@@ -2,7 +2,7 @@ package com.ballad.order.cuisine;
 
 /**
  * <p>
- * description:
+ * description: 菜单，即需要调用的命令
  * </p>
  *
  * @author: 05697

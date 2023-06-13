@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- * description:
+ * description: 小二，即命令的调用者
  * </p>
  *
  * @author: 05697
@@ -24,6 +24,9 @@ public class XiaoEr {
         iCuisineList.add(cuisine);
     }
 
+    /**
+     * 对于命令列表，须要同步执行，列表的清理操作需要保证其原子性
+     */
     public synchronized void placeOrder() {
         for (ICuisine iCuisine : iCuisineList) {
             iCuisine.cook();

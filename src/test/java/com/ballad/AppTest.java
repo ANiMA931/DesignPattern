@@ -101,10 +101,14 @@ public class AppTest {
      */
     @Test
     public void orderTest() {
+        //以上三条用于模拟初始化需要调用的命令与具体实现，一般是业务层面需要关注的东西；
         ICuisine guangdongCuisine = new GuangdongCuisine(new GuangdongCook());
         JiangsuCuisine jiangsuCuisine = new JiangsuCuisine(new JiangsuCook());
         ShandongCuisine shandongCuisine = new ShandongCuisine(new ShandongCook());
         XiaoEr xiaoEr = new XiaoEr();
+
+        //对于命令执行者来说，只需要是一条命令即可，而命令即是实现了ICuisine接口的类对象
+        // 具体的实现细节在调用这一步并不关键，不需要知晓细节；
         xiaoEr.order(guangdongCuisine);
         xiaoEr.order(jiangsuCuisine);
         xiaoEr.order(shandongCuisine);
@@ -121,7 +125,7 @@ public class AppTest {
      * 工厂模式测试方法
      */
     @Test
-    public void factoryTest(){
+    public void factoryTest() {
         MyShapeFactory shapeFactory = new MyShapeFactory();
 
         //获取 Circle 的对象，并调用它的 draw 方法

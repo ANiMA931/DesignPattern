@@ -1,8 +1,10 @@
 package com.ballad.order.cook;
 
+import com.ballad.order.cuisine.ICuisine;
+
 /**
  * <p>
- * description:
+ * description: 厨师，即命令的具体实现方法
  * </p>
  *
  * @author: 05697
