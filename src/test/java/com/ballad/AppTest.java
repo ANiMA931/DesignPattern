@@ -2,6 +2,11 @@ package com.ballad;
 
 import static org.junit.Assert.assertTrue;
 
+import com.ballad.abstractfactory.factory.JDKProxy;
+import com.ballad.abstractfactory.factory.impl.EGMCacheAdapter;
+import com.ballad.abstractfactory.factory.impl.IIRCacheAdapter;
+import com.ballad.abstractfactory.service.CacheService;
+import com.ballad.abstractfactory.service.impl.CacheServiceImpl;
 import com.ballad.decorator.LoginSsoDecorator;
 import com.ballad.decorator.interceptor.SsoInterceptor;
 import com.ballad.factory.MyShape;
@@ -145,5 +150,17 @@ public class AppTest {
 
         //调用 Square 的 draw 方法
         shape3.draw();
+    }
+
+    @Test
+    public void testCacheService() throws Exception {
+        CacheService proxy_EGM = JDKProxy.getProxy(CacheServiceImpl.class, new EGMCacheAdapter());
+        proxy_EGM.set("user_name_01","111");
+        String val01 = proxy_EGM.get("user_name_01");
+        System.out.println(val01);
+        CacheService proxy_IIR = JDKProxy.getProxy(CacheServiceImpl.class, new IIRCacheAdapter());
+        proxy_IIR.set("user_name_01","222");
+        String val02 = proxy_IIR.get("user_name_01");
+        System.out.println(val02);
     }
 }
