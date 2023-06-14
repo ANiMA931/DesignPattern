@@ -18,8 +18,17 @@ public class JDKInvocationHandler implements InvocationHandler {
         this.cacheAdapter = cacheAdapter;
     }
 
+    /**
+     * 经典的对象方法调用
+     * @param proxy 对象
+     * @param method 方法
+     * @param args 方法参数
+     * @return
+     * @throws Throwable
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        //此处完成了接口方法完全相同但具体接口不同的对象方法调用
         return ICacheAdapter.class.getMethod(method.getName(), ClassLoaderUtils.getClazzByArgs(args)).invoke(cacheAdapter, args);
     }
 }
