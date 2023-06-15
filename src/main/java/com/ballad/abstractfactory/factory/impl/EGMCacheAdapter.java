@@ -32,7 +32,7 @@ public class EGMCacheAdapter implements ICacheAdapter {
 
     @Override
     public void set(String key, String value, Long timeout, TimeUnit timeUnit) {
-        egmUtils.setEx(key,value,timeout,timeUnit);
+        egmUtils.setEx(key, value, timeout, timeUnit);
     }
 
     @Override

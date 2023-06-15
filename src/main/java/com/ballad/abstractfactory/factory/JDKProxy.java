@@ -13,13 +13,13 @@ public class JDKProxy {
 
     /**
      * 获取代理的方法
+     *
      * @param interfaceClass 具体的接口类对象
-     * @param cacheAdapter 需要适配的接口
+     * @param cacheAdapter   需要适配的接口
      * @param <T>
      * @return
-     * @throws Exception
      */
-    public static <T> T getProxy(Class<T> interfaceClass, ICacheAdapter cacheAdapter) throws Exception {
+    public static <T> T getProxy(Class<T> interfaceClass, ICacheAdapter cacheAdapter) {
         //方法调用handler
         InvocationHandler handler = new JDKInvocationHandler(cacheAdapter);
         //声明类加载器

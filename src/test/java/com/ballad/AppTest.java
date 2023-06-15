@@ -162,7 +162,7 @@ public class AppTest {
         //获得某adapter适配到service的实例对象，在这种情况下，cacheService的具体对象已经变成了适配的对象了
         CacheService proxy_EGM = JDKProxy.getProxy(CacheServiceImpl.class, new EGMCacheAdapter());
         //而从本质讲，该对象是一个代理，本质是适配器调用的方法，但是是用代理的方法调用，顾可以屏蔽被适配服务间的区别
-        proxy_EGM.set("user_name_01","111", 100000L , TimeUnit.DAYS);
+        proxy_EGM.set("user_name_01","111", 100000L , TimeUnit.HOURS);
         String val01 = proxy_EGM.get("user_name_01");
         System.out.println(val01);
         proxy_EGM.del("user_name_01");
