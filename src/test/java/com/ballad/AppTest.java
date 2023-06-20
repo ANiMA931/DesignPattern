@@ -7,6 +7,7 @@ import com.ballad.abstractfactory.factory.impl.EGMCacheAdapter;
 import com.ballad.abstractfactory.factory.impl.IIRCacheAdapter;
 import com.ballad.abstractfactory.service.CacheService;
 import com.ballad.abstractfactory.service.impl.CacheServiceImpl;
+import com.ballad.builder.Builder;
 import com.ballad.decorator.LoginSsoDecorator;
 import com.ballad.decorator.interceptor.SsoInterceptor;
 import com.ballad.factory.MyShape;
@@ -155,6 +156,7 @@ public class AppTest {
 
     /**
      * 抽象工厂模式测试方法
+     *
      * @throws Exception
      */
     @Test
@@ -162,15 +164,29 @@ public class AppTest {
         //获得某adapter适配到service的实例对象，在这种情况下，cacheService的具体对象已经变成了适配的对象了
         CacheService proxy_EGM = JDKProxy.getProxy(CacheServiceImpl.class, new EGMCacheAdapter());
         //而从本质讲，该对象是一个代理，本质是适配器调用的方法，但是是用代理的方法调用，顾可以屏蔽被适配服务间的区别
-        proxy_EGM.set("user_name_01","111", 100000L , TimeUnit.HOURS);
+        proxy_EGM.set("user_name_01", "111", 100000L, TimeUnit.HOURS);
         String val01 = proxy_EGM.get("user_name_01");
         System.out.println(val01);
         proxy_EGM.del("user_name_01");
         String val11 = proxy_EGM.get("user_name_01");
         System.out.println(val11);
         CacheService proxy_IIR = JDKProxy.getProxy(CacheServiceImpl.class, new IIRCacheAdapter());
-        proxy_IIR.set("user_name_01","222");
+        proxy_IIR.set("user_name_01", "222");
         String val02 = proxy_IIR.get("user_name_01");
         System.out.println(val02);
+    }
+
+    /**
+     * 建造者模式测试方法
+     */
+    @Test
+    public void testBuilder() {
+        Builder builder = new Builder();
+        // 豪华欧式
+        System.out.println(builder.levelOne(132.52D).getDetail());
+        // 轻奢田园
+        System.out.println(builder.levelTwo(98.25D).getDetail());
+        // 现代简约
+        System.out.println(builder.levelThree(85.43D).getDetail());
     }
 }
