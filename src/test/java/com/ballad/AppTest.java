@@ -24,6 +24,7 @@ import com.ballad.order.cuisine.ICuisine;
 import com.ballad.order.cuisine.impl.GuangdongCuisine;
 import com.ballad.order.cuisine.impl.JiangsuCuisine;
 import com.ballad.order.cuisine.impl.ShandongCuisine;
+import com.ballad.prototype.QuestionBankController;
 import com.ballad.responsibilitychain.AuthLink;
 import com.ballad.responsibilitychain.AuthService;
 import com.ballad.responsibilitychain.impl.Level1AuthLink;
@@ -188,5 +189,18 @@ public class AppTest {
         System.out.println(builder.levelTwo(98.25D).getDetail());
         // 现代简约
         System.out.println(builder.levelThree(85.43D).getDetail());
+    }
+
+    /**
+     * 原型模式测试方法
+     *
+     * @throws CloneNotSupportedException
+     */
+    @Test
+    public void test_QuestionBank() throws CloneNotSupportedException {
+        QuestionBankController questionBankController = new QuestionBankController();
+        System.out.println(questionBankController.createPaper("花花", "1000001921032"));
+        System.out.println(questionBankController.createPaper("大豆", "1000001921051"));
+        System.out.println(questionBankController.createPaper("小宝", "1000001921987"));
     }
 }
