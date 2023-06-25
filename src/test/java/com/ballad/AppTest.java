@@ -2,11 +2,19 @@ package com.ballad;
 
 import static org.junit.Assert.assertTrue;
 
+import com.alibaba.fastjson.JSON;
 import com.ballad.abstractfactory.factory.JDKProxy;
 import com.ballad.abstractfactory.factory.impl.EGMCacheAdapter;
 import com.ballad.abstractfactory.factory.impl.IIRCacheAdapter;
 import com.ballad.abstractfactory.service.CacheService;
 import com.ballad.abstractfactory.service.impl.CacheServiceImpl;
+import com.ballad.adapter.MQAdapter;
+import com.ballad.adapter.OrderAdapterService;
+import com.ballad.adapter.RebateInfo;
+import com.ballad.adapter.impl.InsideOrderServiceImpl;
+import com.ballad.adapter.impl.POPOrderAdapterServiceImpl;
+import com.ballad.adapter.mq.CreateAccount;
+import com.ballad.adapter.mq.OrderMq;
 import com.ballad.builder.Builder;
 import com.ballad.decorator.LoginSsoDecorator;
 import com.ballad.decorator.interceptor.SsoInterceptor;
@@ -36,8 +44,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -202,5 +212,52 @@ public class AppTest {
         System.out.println(questionBankController.createPaper("花花", "1000001921032"));
         System.out.println(questionBankController.createPaper("大豆", "1000001921051"));
         System.out.println(questionBankController.createPaper("小宝", "1000001921987"));
+    }
+
+
+    /**
+     * 测试适配器方法1
+     *
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+    @Test
+    public void test_MQAdapter() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        CreateAccount createAccount = new CreateAccount();
+        createAccount.setNumber("100001");
+        createAccount.setAddress("河北省.廊坊市.广阳区.大学里职业技术学院");
+        createAccount.setAccountDate(new Date());
+        createAccount.setDesc("在校开户");
+        HashMap<String, String> link01 = new HashMap<>();
+        link01.put("userId", "number");
+        link01.put("bizId", "number");
+        link01.put("bizTime", "accountDate");
+        link01.put("desc", "desc");
+        RebateInfo rebateInfo01 = MQAdapter.filter(JSON.toJSONString(createAccount), link01);
+        System.out.println("mq.createAccount(适配前)" + createAccount.toString());
+        System.out.println("mq.createAccount(适配后)" + JSON.toJSONString(rebateInfo01));
+        System.out.println();
+        OrderMq orderMq = new OrderMq();
+        orderMq.setUid("100001");
+        orderMq.setSku("10928092093111123");
+        orderMq.setOrderId("100000890193847111");
+        orderMq.setCreateOrderTime(new Date());
+        HashMap<String, String> link02 = new HashMap<>();
+        link02.put("userId", "uid");
+        link02.put("bizId", "orderId");
+        link02.put("bizTime", "createOrderTime");
+        RebateInfo rebateInfo02 = MQAdapter.filter(JSON.toJSONString(orderMq), link02);
+        System.out.println("mq.orderMq(适配前)" + orderMq.toString());
+        System.out.println("mq.orderMq(适配后)" + JSON.toJSONString(rebateInfo02));
+    }
+
+
+    @Test
+    public void test_itfAdapter() {
+        OrderAdapterService popOrderAdapterService = new POPOrderAdapterServiceImpl();
+        System.out.println("判断首单，接口适配(POP)，" + popOrderAdapterService.isFirst("100001"));
+        OrderAdapterService insideOrderService = new InsideOrderServiceImpl();
+        System.out.println("判断首单，接口适配(自营)，" + insideOrderService.isFirst("100001"));
     }
 }
