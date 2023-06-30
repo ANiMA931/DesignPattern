@@ -15,6 +15,11 @@ import com.ballad.adapter.impl.InsideOrderServiceImpl;
 import com.ballad.adapter.impl.POPOrderAdapterServiceImpl;
 import com.ballad.adapter.mq.CreateAccount;
 import com.ballad.adapter.mq.OrderMq;
+import com.ballad.bridging.channel.Pay;
+import com.ballad.bridging.channel.WxPay;
+import com.ballad.bridging.channel.ZfbPay;
+import com.ballad.bridging.mode.PayFaceMode;
+import com.ballad.bridging.mode.PayFingerprintMode;
 import com.ballad.builder.Builder;
 import com.ballad.decorator.LoginSsoDecorator;
 import com.ballad.decorator.interceptor.SsoInterceptor;
@@ -45,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -259,5 +265,15 @@ public class AppTest {
         System.out.println("判断首单，接口适配(POP)，" + popOrderAdapterService.isFirst("100001"));
         OrderAdapterService insideOrderService = new InsideOrderServiceImpl();
         System.out.println("判断首单，接口适配(自营)，" + insideOrderService.isFirst("100001"));
+    }
+
+    @Test
+    public void test_pay() {
+        System.out.println("\r\n模拟测试场景：微信支付、人脸识别。");
+        Pay wxPay = new WxPay(new PayFaceMode());
+        wxPay.transfer("weixin_1092033111", "100000109893", new BigDecimal(100));
+        System.out.println("\r\n模拟测试场景：支付宝方式、指纹识别。");
+        Pay zfbPay = new ZfbPay(new PayFingerprintMode());
+        zfbPay.transfer("jlu19dlxo111", "100000109894", new BigDecimal(100));
     }
 }
