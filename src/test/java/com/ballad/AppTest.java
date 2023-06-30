@@ -45,6 +45,7 @@ import com.ballad.responsibilitychain.impl.Level2AuthLink;
 import com.ballad.responsibilitychain.impl.Level3AuthLink;
 import com.ballad.utils.ToolUtil;
 import com.google.gson.Gson;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
