@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
@@ -15,7 +16,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @ServletComponentScan
-@EnableScheduling//开启定时任务的注解
+@EnableScheduling
+@Configuration
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
