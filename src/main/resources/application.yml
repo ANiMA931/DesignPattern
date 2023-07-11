@@ -76,3 +76,9 @@ itstack:
   door:
     enabled: true
     userStr: 1001,aaaa,ccc #白名单用户ID，多个逗号隔开
+
+
+rsa:
+  key:
+    pubKeyFile: E:/tools/jwt/public_key.pem
+    priKeyFile: E:/tools/jwt/private_key.pem
