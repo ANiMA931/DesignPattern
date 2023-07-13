@@ -6,7 +6,7 @@ server:
     min-spare-threads: 30
   port: 28059
   servlet:
-    context-path: /sqjz/zjt/
+    context-path: /
 
 spring:
   # 环境 dev|test|prod
