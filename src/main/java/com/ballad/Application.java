@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 /**
- * @author: dont know who is.
+ * @author: don't know who is.
  */
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @ServletComponentScan

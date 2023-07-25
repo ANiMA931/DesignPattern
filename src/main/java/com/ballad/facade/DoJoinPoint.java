@@ -66,7 +66,7 @@ public class DoJoinPoint {
         return getClass(jp).getMethod(methodSignature.getName(), methodSignature.getParameterTypes());
     }
 
-    private Class<? extends Object> getClass(JoinPoint jp) throws NoSuchMethodException {
+    private Class<?> getClass(JoinPoint jp) {
         return jp.getTarget().getClass();
     }
 
