@@ -1,45 +1,57 @@
 #此配置为使用 dynamic-datasource-springboot-start 后的
 spring:
-    datasource:
-        druid:
-            stat-view-servlet:
-                enabled: true
-                url-pattern: /druid/*
-                #login-username: admin
-                #login-password: admin
-        dynamic:
-            #全局Druid设置
-            druid:
-                initial-size: 10
-                max-active: 100
-                min-idle: 10
-                max-wait: 60000
-                time-between-eviction-runs-millis: 60000
-                pool-prepared-statements: true
-                max-pool-prepared-statement-per-connection-size: 20
-                min-evictable-idle-time-millis: 300000
-                #Oracle需要打开注释
-                validation-query: SELECT 1 FROM DUAL
-                #达梦可用
-                #validation-query: select 1
-                test-while-idle: true
-                test-on-borrow: false
-                test-on-return: false
-                # 数据库为达梦时禁用防火墙设置 Druid不支持DM
-                #filters: stat,wall
-                filters: stat
-                stat:
-                    log-slow-sql: true
-                    slow-sql-millis: 1000
-                    merge-sql: false #true时系統內一些复杂SQL会报异常但不影响执行结果，为了少输出日志改为false
-            datasource:
-                master:
+  redis:
+    open: true  # 是否开启redis缓存  true开启   false关闭
+    database: 2
+    host: 39.98.228.170
+    port: 6379
+    password:       # 密码（默认为空）
+    timeout: 6000ms  # 连接超时时长（毫秒）
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
 
-                    driver-class-name: com.mysql.cj.jdbc.Driver
-                    url: jdbc:mysql://39.98.228.170:3306/heda?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-                    username: root
-                    password: zzzd@123
-                    #针对单库的Druid设置，可覆盖全局设置
-                    druid:
-                        validation-query: SELECT 1 FROM DUAL
-                        testWhileIdle: true
+  datasource:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+    dynamic:
+      #全局Druid设置
+      druid:
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        time-between-eviction-runs-millis: 60000
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        min-evictable-idle-time-millis: 300000
+        #Oracle需要打开注释
+        validation-query: SELECT 1 FROM DUAL
+        #达梦可用
+        #validation-query: select 1
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        # 数据库为达梦时禁用防火墙设置 Druid不支持DM
+        #filters: stat,wall
+        filters: stat
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false #true时系統內一些复杂SQL会报异常但不影响执行结果，为了少输出日志改为false
+      datasource:
+        master:
+
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://39.98.228.170:3306/heda?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+          username: root
+          password: zzzd@123
+          #针对单库的Druid设置，可覆盖全局设置
+          druid:
+            validation-query: SELECT 1 FROM DUAL
+            testWhileIdle: true
