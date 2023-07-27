@@ -1,6 +1,6 @@
-package com.ballad.security.config;
+package com.ballad.config;
 
-import com.ballad.security.intercepter.JwtInterceptor;
+import com.ballad.intercepter.JwtInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

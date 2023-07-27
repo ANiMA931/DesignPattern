@@ -48,7 +48,7 @@ spring:
         master:
 
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://39.98.228.170:3306/heda?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+          url: jdbc:mysql://39.98.228.170:3306/my_practice?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
           username: root
           password: zzzd@123
           #针对单库的Druid设置，可覆盖全局设置

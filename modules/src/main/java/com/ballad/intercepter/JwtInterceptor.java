@@ -1,4 +1,4 @@
-package com.ballad.security.intercepter;
+package com.ballad.intercepter;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
