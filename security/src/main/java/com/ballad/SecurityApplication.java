@@ -18,16 +18,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ServletComponentScan
 @EnableScheduling
 @Configuration
-public class Application extends SpringBootServletInitializer {
+public class SecurityApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(Application.class);
+        SpringApplication application = new SpringApplication(SecurityApplication.class);
         application.addListeners(new ApplicationPidFileWriter("security.pid"));
         application.run(args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
+        return application.sources(SecurityApplication.class);
     }
 }

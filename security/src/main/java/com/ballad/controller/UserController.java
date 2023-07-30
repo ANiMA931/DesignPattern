@@ -1,8 +1,12 @@
 package com.ballad.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ballad.common.BaseResponse;
+import com.ballad.common.ErrorCode;
+import com.ballad.common.ResultUtils;
 import com.ballad.security.entity.User;
 import com.ballad.security.service.UserService;
+import com.ballad.security.vo.LoginVo;
 import com.ballad.utils.JwtUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -37,33 +41,28 @@ public class UserController {
      * @date 0:02 2022/4/1
      **/
     @GetMapping("/login")
-    public Map<String, Object> login(User user) {
+    public BaseResponse<?> login(User user) {
         log.info("用户名: [{}]", user.getUserName());
         log.info("密码: [{}]", user.getPassword());
-        Map<String, Object> map = new HashMap<>();
+        LoginVo loginVo = new LoginVo();
         User trueUser = userService.getOne(
                 new QueryWrapper<User>().eq("user_name", user.getUserName())
         );
         if (trueUser == null) {
-            map.put("state", false);
-            map.put("msg", "用户名不存在");
-            return map;
+            return ResultUtils.error(ErrorCode.USER_NOT_EXIST);
         }
+        Map<String, String> payload = new HashMap<>();
+        payload.put("id", String.valueOf(user.getId()));
+        payload.put("userName", user.getUserName());
         try {
-            Map<String, String> payload = new HashMap<>();
-            payload.put("id", String.valueOf(user.getId()));
-            payload.put("userName", user.getUserName());
             // 生成JWT的令牌
             String token = JwtUtils.createToken(payload);
-            map.put("state", true);
-            map.put("msg", "认证成功");
             // 响应token
-            map.put("token", token);
+            loginVo.setToken(token);
         } catch (Exception e) {
-            map.put("state", false);
-            map.put("msg", e.getMessage());
+            return ResultUtils.error(ErrorCode.TOKEN_CREATE_ERROR);
         }
-        return map;
+        return ResultUtils.success(loginVo);
     }
 
     @PostMapping("/other")

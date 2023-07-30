@@ -3,12 +3,19 @@ package com.ballad.intercepter;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.ballad.common.BaseResponse;
+import com.ballad.common.ErrorCode;
+import com.ballad.common.ResultUtils;
+import com.ballad.redis.RedisService;
 import com.ballad.utils.JwtUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +26,13 @@ import java.util.Map;
  * @comment
  */
 public class JwtInterceptor implements HandlerInterceptor {
+    @Autowired
+    private RedisService redisService;
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Map<String, Object> map = new HashMap<>();
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         //获取请求头中令牌
         String token = request.getHeader("token");
+        BaseResponse<?> baseResponse;
         try {
             //验证令牌
             JwtUtils.verifyToken(token);
@@ -31,21 +40,19 @@ public class JwtInterceptor implements HandlerInterceptor {
             return true;
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
-            map.put("msg", "无效签名!");
+            baseResponse = ResultUtils.error(ErrorCode.TOKEN_INVALID_SIGNATURE);
         } catch (TokenExpiredException e) {
             e.printStackTrace();
-            map.put("msg", "token过期!");
+            baseResponse = ResultUtils.error(ErrorCode.TOKEN_EXPIRED);
         } catch (AlgorithmMismatchException e) {
             e.printStackTrace();
-            map.put("msg", "token算法不一致!");
+            baseResponse = ResultUtils.error(ErrorCode.TOKEN_ALG_EXPECTION);
         } catch (Exception e) {
             e.printStackTrace();
-            map.put("msg", "token无效!!");
+            baseResponse = ResultUtils.error(ErrorCode.TOKEN_INVALID);
         }
-        //设置状态
-        map.put("state", false);
         //将map转为json
-        String json = new ObjectMapper().writeValueAsString(map);
+        String json = new ObjectMapper().writeValueAsString(baseResponse);
         // 相应json数据
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().println(json);

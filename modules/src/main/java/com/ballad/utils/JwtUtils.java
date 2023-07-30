@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ballad.redis.RedisService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -41,11 +43,13 @@ public class JwtUtils {
         claimMap.forEach(builder::withClaim);
 
         // 添加头部，可省略保持默认，默认即map中的键值对
-        return builder.withHeader(map)
+        String token = builder.withHeader(map)
                 // 设置过期时间
                 .withExpiresAt(expiration)
                 // 设置签名解码算法
                 .sign(Algorithm.HMAC256(SECRET));
+
+        return token;
     }
 
     /**

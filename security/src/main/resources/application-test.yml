@@ -55,3 +55,7 @@ spring:
           druid:
             validation-query: SELECT 1 FROM DUAL
             testWhileIdle: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.
