@@ -48,9 +48,9 @@ spring:
         master:
 
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://39.98.228.170:3306/my_practice?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+          url: jdbc:mysql://localhost:3306/my_practice?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
           username: root
-          password: zzzd@123
+          password: ANiMA931!!!
           #针对单库的Druid设置，可覆盖全局设置
           druid:
             validation-query: SELECT 1 FROM DUAL
@@ -58,4 +58,4 @@ spring:
 
 mybatis-plus:
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.
+#    log-impl: org.apache.ibatis.logging.stdout.

@@ -25,11 +25,30 @@ public class BaseResponse<T> implements Serializable {
         this.message = message;
     }
 
+    public BaseResponse(T data) {
+        this.data = data;
+        this.code = ResultCode.SUCCESS.getCode();
+        this.message = ResultCode.SUCCESS.getMessage();
+    }
+
+    public BaseResponse(ResultCode resultCode, T data) {
+        this.data = data;
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
+    }
+
+    // 只返回状态码
+    public BaseResponse(StatusCode statusCode) {
+        this.code = statusCode.getCode();
+        this.message = statusCode.getMessage();
+        this.data = null;
+    }
+
     public BaseResponse(int code, T data) {
         this(code, data, "");
     }
 
-    public BaseResponse(ErrorCode errorCode) {
-        this(errorCode.getCode(), null, errorCode.getMessage());
+    public BaseResponse(ResultCode resultCode) {
+        this(resultCode.getCode(), null, resultCode.getMessage());
     }
 }

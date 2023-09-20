@@ -19,6 +19,7 @@ public class JwtConfig implements WebMvcConfigurer {
                 //添加拦截路径
                 .addPathPatterns("/**")
                 //添加放行路径
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/health");
     }
 }

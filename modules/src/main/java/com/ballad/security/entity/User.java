@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,10 +24,12 @@ public class User extends Model<User> {
     @TableId
     private Long id;
     //用户名
+    @NotNull(message = "用户名不能为空")
     private String userName;
     //昵称
     private String nickName;
     //密码
+    @NotNull(message = "密码不能为空")
     private String password;
     //用户类型：0代表普通用户，1代表管理员
     private String userType;

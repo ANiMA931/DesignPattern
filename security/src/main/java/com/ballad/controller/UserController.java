@@ -2,7 +2,7 @@ package com.ballad.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ballad.common.BaseResponse;
-import com.ballad.common.ErrorCode;
+import com.ballad.common.ResultCode;
 import com.ballad.common.ResultUtils;
 import com.ballad.security.entity.User;
 import com.ballad.security.service.UserService;
@@ -11,6 +11,7 @@ import com.ballad.utils.JwtUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +42,7 @@ public class UserController {
      * @date 0:02 2022/4/1
      **/
     @GetMapping("/login")
-    public BaseResponse<?> login(User user) {
+    public BaseResponse<?> login(@Validated User user) {
         log.info("用户名: [{}]", user.getUserName());
         log.info("密码: [{}]", user.getPassword());
         LoginVo loginVo = new LoginVo();
@@ -49,7 +50,7 @@ public class UserController {
                 new QueryWrapper<User>().eq("user_name", user.getUserName())
         );
         if (trueUser == null) {
-            return ResultUtils.error(ErrorCode.USER_NOT_EXIST);
+            return ResultUtils.error(ResultCode.USER_NOT_EXIST);
         }
         Map<String, String> payload = new HashMap<>();
         payload.put("id", String.valueOf(user.getId()));
@@ -60,7 +61,7 @@ public class UserController {
             // 响应token
             loginVo.setToken(token);
         } catch (Exception e) {
-            return ResultUtils.error(ErrorCode.TOKEN_CREATE_ERROR);
+            return ResultUtils.error(ResultCode.TOKEN_CREATE_ERROR);
         }
         return ResultUtils.success(loginVo);
     }

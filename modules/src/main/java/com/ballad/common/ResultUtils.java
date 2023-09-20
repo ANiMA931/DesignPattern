@@ -15,21 +15,21 @@ public class ResultUtils {
      * @return
      */
     public static <T> BaseResponse<T> success(T data) {
-        return new BaseResponse<>(0, data, "ok");
+        return new BaseResponse<>(ResultCode.SUCCESS.getCode(), data, ResultCode.SUCCESS.getMessage());
     }
 
     public static <T> BaseResponse<T> success(T data, String message) {
-        return new BaseResponse<>(0, data, message);
+        return new BaseResponse<>(ResultCode.SUCCESS.getCode(), data, message);
     }
 
     /**
      * 失败
      *
-     * @param errorCode
+     * @param resultCode
      * @return
      */
-    public static BaseResponse<?> error(ErrorCode errorCode) {
-        return new BaseResponse<>(errorCode);
+    public static BaseResponse<?> error(ResultCode resultCode) {
+        return new BaseResponse<>(resultCode);
     }
 
     /**
@@ -46,10 +46,10 @@ public class ResultUtils {
     /**
      * 失败
      *
-     * @param errorCode
+     * @param resultCode
      * @return
      */
-    public static BaseResponse<?> error(ErrorCode errorCode, String message) {
-        return new BaseResponse<>(errorCode.getCode(), null, message);
+    public static BaseResponse<?> error(ResultCode resultCode, String message) {
+        return new BaseResponse<>(resultCode.getCode(), null, message);
     }
 }

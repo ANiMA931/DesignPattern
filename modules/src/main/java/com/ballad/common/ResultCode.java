@@ -5,7 +5,7 @@ package com.ballad.common;
  *
  * @author <a href="https://github.com/liyupi">...</a>
  */
-public enum ErrorCode {
+public enum ResultCode implements StatusCode{
 
     SUCCESS(0, "ok"),
     PARAMS_ERROR(4000000, "请求参数错误"),
@@ -20,7 +20,8 @@ public enum ErrorCode {
     TOKEN_ALG_EXPECTION(5001002,"token算法不一致"),
     TOKEN_INVALID(5001002,"token无效"),
     TOKEN_CREATE_ERROR(5001999,"生成token失败"),
-    OPERATION_ERROR(50001, "操作失败");
+    OPERATION_ERROR(50001, "操作失败"),
+    RESPONSE_PACK_ERROR(1003, "response返回包装失败");
 
     /**
      * 状态码
@@ -32,15 +33,17 @@ public enum ErrorCode {
      */
     private final String message;
 
-    ErrorCode(int code, String message) {
+    ResultCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    @Override
     public int getCode() {
         return code;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
