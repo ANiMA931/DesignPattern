@@ -46,9 +46,9 @@ public class UserController {
         log.info("用户名: [{}]", user.getUserName());
         log.info("密码: [{}]", user.getPassword());
         LoginVo loginVo = new LoginVo();
-        User trueUser = userService.getOne(
-                new QueryWrapper<User>().eq("user_name", user.getUserName())
-        );
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name", user.getUserName());
+        User trueUser = userService.getOne(wrapper);
         if (trueUser == null) {
             return ResultUtils.error(ResultCode.USER_NOT_EXIST);
         }
