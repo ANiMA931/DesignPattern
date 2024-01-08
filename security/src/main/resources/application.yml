@@ -23,6 +23,14 @@ spring:
       max-request-size: 100MB
       enabled: true
 
+  security:
+    user:
+      name: admin
+      password: anima931!
+    # 关闭csrf
+    csrf:
+      enabled: false
+
 
 #mybatis
 mybatis-plus:
