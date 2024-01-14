@@ -12,6 +12,7 @@
         <module>modules</module>
         <module>security</module>
         <module>example</module>
+        <module>my-state-machine</module>
     </modules>
 
     <parent>
