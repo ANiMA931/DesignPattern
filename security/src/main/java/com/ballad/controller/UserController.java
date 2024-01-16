@@ -4,8 +4,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ballad.common.BaseResponse;
 import com.ballad.common.ResultCode;
 import com.ballad.common.ResultUtils;
-import com.ballad.security.entity.User;
-import com.ballad.security.service.UserService;
+import com.ballad.security.entity.SysUser;
+import com.ballad.security.service.SysUserService;
 import com.ballad.security.vo.LoginVo;
 import com.ballad.utils.JwtUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -33,28 +33,28 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
 
     /**
-     * @param user user对象，默认有值
+     * @param sysUser user对象，默认有值
      * @description 登录功能
      * @author xBaozi
      * @date 0:02 2022/4/1
      **/
     @GetMapping("/login")
-    public BaseResponse<?> login(@Validated User user) {
-        log.info("用户名: [{}]", user.getUserName());
-        log.info("密码: [{}]", user.getPassword());
+    public BaseResponse<?> login(@Validated SysUser sysUser) {
+        log.info("用户名: [{}]", sysUser.getUserName());
+        log.info("密码: [{}]", sysUser.getPassword());
         LoginVo loginVo = new LoginVo();
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_name", user.getUserName());
-        User trueUser = userService.getOne(wrapper);
-        if (trueUser == null) {
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name", sysUser.getUserName());
+        SysUser trueSysUser = sysUserService.getOne(wrapper);
+        if (trueSysUser == null) {
             return ResultUtils.error(ResultCode.USER_NOT_EXIST);
         }
         Map<String, String> payload = new HashMap<>();
-        payload.put("id", String.valueOf(user.getId()));
-        payload.put("userName", user.getUserName());
+        payload.put("id", String.valueOf(sysUser.getId()));
+        payload.put("userName", sysUser.getUserName());
         try {
             // 生成JWT的令牌
             String token = JwtUtils.createToken(payload);

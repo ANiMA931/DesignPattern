@@ -1,6 +1,5 @@
 package com.ballad.security.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -19,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @TableName("SYS_USER")
-public class User extends Model<User> {
+public class SysUser extends Model<SysUser> {
     //主键
     @TableId
     private Long id;
