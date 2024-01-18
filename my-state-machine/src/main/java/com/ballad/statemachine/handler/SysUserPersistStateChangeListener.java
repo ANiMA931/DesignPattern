@@ -10,7 +10,7 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.state.State;
 import org.springframework.statemachine.transition.Transition;
 
-public class OrderPersistStateChangeListener implements PersistStateMachineHandler.PersistStateChangeListener {
+public class SysUserPersistStateChangeListener implements SysUserPersistStateMachineHandler.PersistStateChangeListener {
 
     @Autowired
     private SysUserService sysUserService;

@@ -35,27 +35,27 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<RegSta
      */
     @Override
     public void configure(StateMachineTransitionConfigurer<RegStatusEnum, RegEventEnum> transitions) throws Exception {
-        // 1. connect UNCONNECTED -&gt; CONNECTED
+        // 1. connect UNCONNECTED -> CONNECTED
         transitions.withExternal()
                 .source(RegStatusEnum.UNCONNECTED)
                 .target(RegStatusEnum.CONNECTED)
                 .event(RegEventEnum.CONNECT)
-                // 2. beginToLogin CONNECTED -&gt; LOGINING
+                // 2. beginToLogin CONNECTED -> LOGINING
                 .and().withExternal()
                 .source(RegStatusEnum.CONNECTED)
                 .target(RegStatusEnum.LOGINING)
                 .event(RegEventEnum.BEGIN_TO_LOGIN)
-                // 3. login failure LOGINING -&gt; UNCONNECTED
+                // 3. login failure LOGINING -> UNCONNECTED
                 .and().withExternal()
                 .source(RegStatusEnum.LOGINING)
                 .target(RegStatusEnum.UNCONNECTED)
                 .event(RegEventEnum.LOGIN_FAILURE)
-                // 4. login success LOGINING -&gt; LOGIN_INTO_SYSTEM
+                // 4. login success LOGINING -> LOGIN_INTO_SYSTEM
                 .and().withExternal()
                 .source(RegStatusEnum.LOGINING)
                 .target(RegStatusEnum.LOGIN_INTO_SYSTEM)
                 .event(RegEventEnum.LOGIN_SUCCESS)
-                // 5. logout LOGIN_INTO_SYSTEM -&gt; UNCONNECTED
+                // 5. logout LOGIN_INTO_SYSTEM -> UNCONNECTED
                 .and().withExternal()
                 .source(RegStatusEnum.LOGIN_INTO_SYSTEM)
                 .target(RegStatusEnum.UNCONNECTED)

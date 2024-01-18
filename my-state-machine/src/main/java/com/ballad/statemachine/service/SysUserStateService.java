@@ -3,7 +3,7 @@ package com.ballad.statemachine.service;
 import com.ballad.security.entity.SysUser;
 import com.ballad.security.service.SysUserService;
 import com.ballad.statemachine.event.RegEventEnum;
-import com.ballad.statemachine.handler.PersistStateMachineHandler;
+import com.ballad.statemachine.handler.SysUserPersistStateMachineHandler;
 import com.ballad.statemachine.state.RegStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
@@ -15,10 +15,10 @@ import java.util.StringJoiner;
 @Component
 public class SysUserStateService {
 
-    private final PersistStateMachineHandler handler;
+    private final SysUserPersistStateMachineHandler handler;
 
 
-    public SysUserStateService(PersistStateMachineHandler handler) {
+    public SysUserStateService(SysUserPersistStateMachineHandler handler) {
         this.handler = handler;
     }
 
@@ -38,7 +38,10 @@ public class SysUserStateService {
 
     public boolean change(int order, RegEventEnum event) {
         SysUser o = repo.getById(order);
-        return handler.handleEventWithState(MessageBuilder.withPayload(event).setHeader("sysUser", order).build(), RegStatusEnum.valueOf(o.getStatus()));
+        return handler.handleEventWithState(
+                MessageBuilder.withPayload(event).setHeader("sysUser", order).build(),
+                RegStatusEnum.valueOf(o.getStatus())
+        );
     }
 
 }

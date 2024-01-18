@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 import java.util.Iterator;
 import java.util.List;
 
-public class PersistStateMachineHandler extends LifecycleObjectSupport {
+public class SysUserPersistStateMachineHandler extends LifecycleObjectSupport {
 
     private final StateMachine<RegStatusEnum, RegEventEnum> stateMachine;
     private final PersistingStateChangeInterceptor interceptor = new PersistingStateChangeInterceptor();
@@ -27,7 +27,7 @@ public class PersistStateMachineHandler extends LifecycleObjectSupport {
      *
      * @param stateMachine 状态机实例
      */
-    public PersistStateMachineHandler(StateMachine<RegStatusEnum, RegEventEnum> stateMachine) {
+    public SysUserPersistStateMachineHandler(StateMachine<RegStatusEnum, RegEventEnum> stateMachine) {
         Assert.notNull(stateMachine, "State machine must be set");
         this.stateMachine = stateMachine;
     }
@@ -83,8 +83,8 @@ public class PersistStateMachineHandler extends LifecycleObjectSupport {
          * @param stateMachine 状态机实例
          */
         void onPersist(State<RegStatusEnum, RegEventEnum> state,
-                       Message<RegEventEnum> message, Transition<RegStatusEnum,
-                RegEventEnum> transition,
+                       Message<RegEventEnum> message,
+                       Transition<RegStatusEnum, RegEventEnum> transition,
                        StateMachine<RegStatusEnum, RegEventEnum> stateMachine);
     }
 
@@ -96,8 +96,7 @@ public class PersistStateMachineHandler extends LifecycleObjectSupport {
         public void preStateChange(State<RegStatusEnum, RegEventEnum> state,
                                    Message<RegEventEnum> message,
                                    Transition<RegStatusEnum, RegEventEnum> transition,
-                                   StateMachine<RegStatusEnum,
-                                           RegEventEnum> stateMachine) {
+                                   StateMachine<RegStatusEnum, RegEventEnum> stateMachine) {
             stateChangeListener.onPersist(state, message, transition, stateMachine);
         }
     }
@@ -109,10 +108,8 @@ public class PersistStateMachineHandler extends LifecycleObjectSupport {
         public void onPersist(State<RegStatusEnum, RegEventEnum> state,
                               Message<RegEventEnum> message,
                               Transition<RegStatusEnum, RegEventEnum> transition,
-                              StateMachine<RegStatusEnum,
-                                      RegEventEnum> stateMachine) {
-            for (Iterator<PersistStateChangeListener> iterator = getListeners().reverse();
-                 iterator.hasNext(); ) {
+                              StateMachine<RegStatusEnum, RegEventEnum> stateMachine) {
+            for (Iterator<PersistStateChangeListener> iterator = getListeners().reverse(); iterator.hasNext(); ) {
                 PersistStateChangeListener listener = iterator.next();
                 listener.onPersist(state, message, transition, stateMachine);
             }

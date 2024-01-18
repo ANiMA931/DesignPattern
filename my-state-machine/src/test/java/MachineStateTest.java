@@ -18,6 +18,5 @@ public class MachineStateTest {
         stateMachine.sendEvent(RegEventEnum.BEGIN_TO_LOGIN);
         stateMachine.sendEvent(RegEventEnum.LOGIN_SUCCESS);
         stateMachine.sendEvent(RegEventEnum.LOGOUT);
-        System.out.println(RegStatusEnum.valueOf("CONNECTED"));
     }
 }
