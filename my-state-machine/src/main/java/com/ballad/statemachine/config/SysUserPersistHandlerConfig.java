@@ -18,9 +18,10 @@ public class SysUserPersistHandlerConfig {
 
 
     @Bean
-    public SysUserStateService persist() {
+    public SysUserStateService sysUserStateService() {
         SysUserPersistStateMachineHandler handler = persistStateMachineHandler();
         handler.addPersistStateChangeListener(persistStateChangeListener());
+        //由于此处已经定义了bean，所以在具体的SysUserStateService中，就不需要再用注解@component了
         return new SysUserStateService(handler);
     }
 

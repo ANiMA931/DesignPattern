@@ -7,12 +7,10 @@ import com.ballad.statemachine.handler.SysUserPersistStateMachineHandler;
 import com.ballad.statemachine.state.RegStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.StringJoiner;
 
-@Component
 public class SysUserStateService {
 
     private final SysUserPersistStateMachineHandler handler;

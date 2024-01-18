@@ -20,7 +20,7 @@ public class SysUserPersistStateChangeListener implements SysUserPersistStateMac
                           Message<RegEventEnum> message,
                           Transition<RegStatusEnum, RegEventEnum> transition,
                           StateMachine<RegStatusEnum, RegEventEnum> stateMachine) {
-        if (message != null && message.getHeaders().containsKey("order")) {
+        if (message != null && message.getHeaders().containsKey("sysUser")) {
             Integer order = message.getHeaders().get("order", Integer.class);
             SysUser o = sysUserService.getById(order);
             RegStatusEnum status = state.getId();
